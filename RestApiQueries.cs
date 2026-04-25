@@ -130,6 +130,90 @@ namespace HttpClientSample
                 return false;
             }
         }
+
+        // ====== ALL THE FUNCTIONS THAT WILL BE CALL BY THE UI/Console APP? WPF
+
+        public List<Todo> GetTodos(string path)
+        {
+            List<Todo> todos = new List<Todo>();
+
+            try
+            {
+                Task<List<Todo>> task = Task.Run(async () => await GetTodosAsync(path));
+                task.Wait();
+                todos = task.Result;
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return todos;
+        }
+
+        public Todo GetTodo(int id,  string path)
+        {
+            try
+            {
+                Task<Todo> task = Task.Run(async () => await GetTodoAsync(id, path));
+                task.Wait();
+
+                return task.Result;
+
+            }catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
+
+            return new Todo();
+        }
+
+        public bool AddTodo(Todo todo,  string path)
+        {
+            try
+            {
+                Task<bool> task = Task.Run(async () => await AddTodoAsync(todo, path));
+                task.Wait();
+                return task.Result;
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return false;
+        }
+
+        public bool CompleteTodo(Todo newTodo, string path)
+        {
+            try
+            {
+                Task<bool> task = Task.Run(async () => await CompleteTodoAsync(newTodo, path));
+                task.Wait();
+                return task.Result;
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return false;
+        }
+
+        public bool DeleteTodo(int  id, string path)
+        {
+            try
+            {
+
+                Task<bool> task = Task.Run(async () => await RemoveTodoAsync(id, path));
+                task.Wait();
+
+                return task.Result;
+
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return false;
+        }
     }
 
 }
