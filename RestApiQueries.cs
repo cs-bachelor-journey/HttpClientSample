@@ -22,4 +22,5 @@ namespace HttpClientSample
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
     }
+
 }
